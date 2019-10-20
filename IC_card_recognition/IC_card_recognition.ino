@@ -29,18 +29,20 @@ void setup()
   SPI.begin();
   r1.init();
   r2.init();
+  servo1.write(0);
+  servo2.write(0);
 }
 
 void loop()
 {
   //找卡
   if (r1.isCard()) {
-    for (int i = 0; i <= 100; i++) {
+    for (int i = 0; i <= 90; i++) {
       servo1.write(i);
       delay(0.1);
     }
     delay(1000);
-    for (int i = 100; i >= 0; i--) {
+    for (int i = 90; i >= 0; i--) {
       servo1.write(i);
       delay(0.1);
     }
@@ -49,19 +51,19 @@ void loop()
     r1.halt();
   }
   //找卡
-  if (r1.isCard()) {
-    for (int i = 0; i <= 100; i++) {
-      servo1.write(i);
+  if (r2.isCard()) {
+    for (int i = 0; i <= 90; i++) {
+      servo2.write(i);
       delay(0.1);
     }
     delay(1000);
-    for (int i = 100; i >= 0; i--) {
-      servo1.write(i);
+    for (int i = 90; i >= 0; i--) {
+      servo2.write(i);
       delay(0.1);
     }
     //选卡，可返回卡容量（锁定卡片，防止多数读取），去掉本行将连续读卡
-    r1.selectTag(r1.serNum);
-    r1.halt();
+    r2.selectTag(r1.serNum);
+    r2.halt();
   }
   delay(1000);
 }
