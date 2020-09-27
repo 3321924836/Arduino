@@ -43,10 +43,7 @@ void switchLight(int l){
 
 void sendStatus(){
   bt.print(char(48));
-  bt.print(char(status[2]+48));
-  bt.print(char(status[3]+48));
-  bt.print(char(status[4]+48));
-  bt.print(char(status[5]+48));
-  bt.print(char(status[6]+48));
-  bt.print(char(status[7]+48));
+  for(int i=2;i<=7;i++){
+  bt.print(char(status[i]+48));
+  }
 }
