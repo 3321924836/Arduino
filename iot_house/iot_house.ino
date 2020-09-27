@@ -1,25 +1,24 @@
 #include <SoftwareSerial.h>
 
-#define l_lr1 2
-#define l_lr2 3
+#define l_lr 2
+#define l_k 3
 #define l_p 4
 #define l_br 5
-#define l_t 6
+#define l_toi 6
 #define l_d 7
+#define l_tea 8
+#define relay 9
 
-int status[8]={0,0,0,0,0,0,0,0};
+int status[10]={0,0,0,0,0,0,0,0,0,0};
 
 SoftwareSerial bt(10,11);
 void switchLight(int l);
 void sendStatus();
 void setup() {
-  pinMode(l_lr1,OUTPUT);
-  pinMode(l_lr2,OUTPUT);
-  pinMode(l_p,OUTPUT);
-  pinMode(l_br,OUTPUT);
-  pinMode(l_t,OUTPUT);
-  pinMode(l_d,OUTPUT);
+  for(int i=2;i<=9;i++)
+    pinMode(i,OUTPUT);
   bt.begin(9600);
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -43,7 +42,9 @@ void switchLight(int l){
 
 void sendStatus(){
   bt.print(char(48));
-  for(int i=2;i<=7;i++){
+  for(int i=2;i<=9;i++){
   bt.print(char(status[i]+48));
+  Serial.print(char(status[i]+48));
   }
+  Serial.println();
 }
